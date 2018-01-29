@@ -237,7 +237,7 @@
 
     
         <meta property="article:published_time" content="Mon Jan 29 2018 19:12:28 GMT+0800">
-        <meta property="article:modified_time" content="Mon Jan 29 2018 19:35:17 GMT+0800">
+        <meta property="article:modified_time" content="Mon Jan 29 2018 19:41:48 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -260,7 +260,7 @@
     "mainEntityOfPage": "https://hjw2016.github.io/2018/01/29/leaflet-popup/index.html",
     "headline": "",
     "datePublished": "Mon Jan 29 2018 19:12:28 GMT+0800",
-    "dateModified": "Mon Jan 29 2018 19:35:17 GMT+0800",
+    "dateModified": "Mon Jan 29 2018 19:41:48 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "HuangJingwei",
@@ -480,7 +480,7 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <hr>
-<p>title: “<code>leaflet</code>的<code>popup</code>弹出框传入<code>vue</code>组件”<br>date: 2018-01-29</p>
+<p>title: leaflet的popup弹出框传入vue组件<br>date: 2018-01-29</p>
 <h2 id="tags-vue-leaflet"><a href="#tags-vue-leaflet" class="headerlink" title="tags: [vue,leaflet] "></a>tags: [vue,leaflet] </h2><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p> 最近做的项目中地图是用<code>leaflet</code>加载的,在写弹出框的时候发现原生的<code>bindPopup</code>方法只支持传入<code>String | HTMLElement</code>类型的参数。如果要实现复杂的弹出框效果，传入一个<code>vue-component</code>比较理想。</p>
 <h2 id="开始动手"><a href="#开始动手" class="headerlink" title="开始动手"></a>开始动手</h2><p> 既然<code>bindPopup</code>方法不支持，那我们能不能先弹出一个框，然后去监听弹出事件呢？查看<code>leaflet</code>中<code>Marker</code>属性的<a href="http://leafletjs.com/reference-1.3.0.html#marker-popupopen" target="_blank" rel="noopener">api</a>可以看到有个<code>popupopen</code>的<code>event</code>事件。<br> 第一步是要监听这个事件。<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">L.marker([<span class="number">50.5</span>, <span class="number">30.5</span>],&#123;<span class="attr">icon</span>:myIcon&#125;)</span><br><span class="line">.addTo(map)</span><br><span class="line">.bindPopup(<span class="string">"&lt;div id="</span>test<span class="string">"&gt;测试文本&lt;/div&gt;"</span>)</span><br><span class="line">.on(<span class="string">'popupopen'</span>,(ev) =&gt; &#123;</span><br><span class="line">    <span class="keyword">debugger</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p> 执行了这段代码后点击地图上图标如果能进入断点说明成功监听到了弹出事件,然后问题就简单了。<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    template:<span class="string">"&lt;mycom&gt;&#123;&#123;stnm&#125;&#125;&lt;/mycom&gt;"</span>,</span><br><span class="line">    data:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            stnm:<span class="string">"水闸"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    components:&#123;<span class="attr">mycom</span>:mycom&#125;</span><br><span class="line">&#125;).$mount(<span class="string">"#test"</span>);</span><br></pre></td></tr></table></figure></p>
