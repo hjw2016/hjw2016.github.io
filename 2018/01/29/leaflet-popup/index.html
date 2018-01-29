@@ -237,7 +237,7 @@
 
     
         <meta property="article:published_time" content="Mon Jan 29 2018 19:12:28 GMT+0800">
-        <meta property="article:modified_time" content="Mon Jan 29 2018 19:12:20 GMT+0800">
+        <meta property="article:modified_time" content="Mon Jan 29 2018 19:22:05 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -260,7 +260,7 @@
     "mainEntityOfPage": "https://hjw2016.github.io/2018/01/29/leaflet-popup/index.html",
     "headline": "",
     "datePublished": "Mon Jan 29 2018 19:12:28 GMT+0800",
-    "dateModified": "Mon Jan 29 2018 19:12:20 GMT+0800",
+    "dateModified": "Mon Jan 29 2018 19:22:05 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "HuangJingwei",
@@ -344,7 +344,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#leaflet的popup弹出框传入vue组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">leaflet的popup弹出框传入vue组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开始动手"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">开始动手</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一些值得注意的小问题"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">一些值得注意的小问题</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tag-博客"><span class="post-toc-number">1.</span> <span class="post-toc-text"> tag: 博客 </span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">2.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开始动手"><span class="post-toc-number">3.</span> <span class="post-toc-text">开始动手</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一些值得注意的小问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">一些值得注意的小问题</span></a></li></ol>
     </ul>
     
 
@@ -479,10 +479,12 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="leaflet的popup弹出框传入vue组件"><a href="#leaflet的popup弹出框传入vue组件" class="headerlink" title="leaflet的popup弹出框传入vue组件"></a><code>leaflet</code>的<code>popup</code>弹出框传入<code>vue</code>组件</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p> 最近做的项目中地图是用<code>leaflet</code>加载的,在写弹出框的时候发现原生的<code>bindPopup</code>方法只支持传入<code>String | HTMLElement</code>类型的参数。如果要实现复杂的弹出框效果，传入一个<code>vue-component</code>比较理想。</p>
+        <hr>
+<p> layout: post<br> title: “<code>leaflet</code>的<code>popup</code>弹出框传入<code>vue</code>组件”<br> date: 2018-01-29</p>
+<h2 id="tag-博客"><a href="#tag-博客" class="headerlink" title=" tag: 博客 "></a> tag: 博客 </h2><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p> 最近做的项目中地图是用<code>leaflet</code>加载的,在写弹出框的时候发现原生的<code>bindPopup</code>方法只支持传入<code>String | HTMLElement</code>类型的参数。如果要实现复杂的弹出框效果，传入一个<code>vue-component</code>比较理想。</p>
 <h2 id="开始动手"><a href="#开始动手" class="headerlink" title="开始动手"></a>开始动手</h2><p> 既然<code>bindPopup</code>方法不支持，那我们能不能先弹出一个框，然后去监听弹出事件呢？查看<code>leaflet</code>中<code>Marker</code>属性的<a href="http://leafletjs.com/reference-1.3.0.html#marker-popupopen" target="_blank" rel="noopener">api</a>可以看到有个<code>popupopen</code>的<code>event</code>事件。<br> 第一步是要监听这个事件。<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">L.marker([<span class="number">50.5</span>, <span class="number">30.5</span>],&#123;<span class="attr">icon</span>:myIcon&#125;)</span><br><span class="line">.addTo(map)</span><br><span class="line">.bindPopup(<span class="string">"&lt;div id="</span>test<span class="string">"&gt;测试文本&lt;/div&gt;"</span>)</span><br><span class="line">.on(<span class="string">'popupopen'</span>,(ev) =&gt; &#123;</span><br><span class="line">    <span class="keyword">debugger</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p> 执行了这段代码后点击地图上图标如果能进入断点说明成功监听到了弹出事件,然后问题就简单了。<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    template:<span class="string">"&lt;mycom&gt;&#123;&#123;stnm&#125;&#125;&lt;/mycom&gt;"</span>,</span><br><span class="line">    data:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            stnm:<span class="string">"水闸"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    components:&#123;<span class="attr">mycom</span>:mycom&#125;</span><br><span class="line">&#125;).$mount(<span class="string">"#test"</span>);</span><br></pre></td></tr></table></figure></p>
-<p> 上面这段代码其实就是<code>new</code>一个<code>Vue</code>对象，然后用<code>$mount</code>手动挂载到我们的弹出框的元素上。这样我们就可以实现很多复杂的效果，而且你都可以把它封装在组件中，代码也比较清晰。下面贴一张效果图<br>    <img src="./final.png" alt="实现效果"></p>
+<p> 上面这段代码其实就是<code>new</code>一个<code>Vue</code>对象，然后用<code>$mount</code>手动挂载到我们的弹出框的元素上。这样我们就可以实现很多复杂的效果，而且你都可以把它封装在组件中，代码也比较清晰。下面贴一张效果图<br>    <img src="final.png" alt="实现效果"></p>
 <h2 id="一些值得注意的小问题"><a href="#一些值得注意的小问题" class="headerlink" title="一些值得注意的小问题"></a>一些值得注意的小问题</h2><ul>
 <li>我们的业务中一般不会只有几个<code>marker</code>，当<code>marker</code>较多时，我们会通过循环去加载，这样我们就需要动态去传递参数，一般来说有行数据<code>row</code>，这些你可以通过组件的<a href="https://cn.vuejs.org/v2/api/#props" target="_blank" rel="noopener">props</a>属性去定义，示例参考<a href="http://172.16.35.19/htclient" target="_blank" rel="noopener">dslient项目</a></li>
 <li>当你是通过循环来加<code>marker</code>到地图上时，很多id可能会重复,比如说我上面的组件中用到了<code>echarts</code>，在调用init的方法时需要传入id:<br><code>echarts.init(domcument.getElementById(&quot;#id&quot;));</code><br>最粗暴的方式当然是id这样命名:<code>id+index</code>，还有一种方式是通过<code>ev.target.getPopup().getElement()</code>获取到整个<code>popup</code>容器，然后去<code>popup</code>容器中找对应的id，这样就不会有问题了。</li>
